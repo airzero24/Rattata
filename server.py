@@ -60,7 +60,7 @@ ls		- List directory files
 ps		- Get process list (Windows implant only)
 pwd		- Get present working directory
 shell		- Execute command via cmd.exe
-sysinfo		- Recieve system information
+sysinfo		- Recieve system information (Windows implant only)
 upload		- Upload specified file (Under construction)
 whoami		- Get current username
 """
