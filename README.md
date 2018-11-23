@@ -5,17 +5,17 @@ This was also my first actual programming project, so I'm sure it's riddled with
 
 ## Installation
 
-pip install -r requirements.txt
+`pip install -r requirements.txt`
 
 ## Usage
 
 You will to edit the lhost and lport variables in the implant files to point to your C2 server.
 
-python server.py <C2 server address> <listening port>
+`python server.py <C2 server address> <listening port>`
 
 Next, edit the implant-<OS>.py file to point the lhost and lport variabels to your C2 server. 
 
-python implant-win.py or implant-nix.py
+`python implant-win.py or implant-nix.py`
 
 ## Session Management
 
