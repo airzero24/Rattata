@@ -19,7 +19,7 @@ Next, edit the implant-<OS>.py file to point the lhost and lport variabels to yo
 
 ## Session Management
 
-Rattata allows for multiple connections to the server and subsequent session management. To be able to interact with new sessions, the command `checkconns` will need to be issued from the main menu, see example below. *Note: There is a bug will handling multiple connections from the same host, still working a solution.
+Rattata allows for multiple connections to the server and subsequent session management. To be able to interact with new sessions, the command `checkconns` will need to be issued from the main menu, see example below. *Note: There is a bug with handling multiple connections from the same host, still working a solution.
 
 ```
 [*] Waiting for connection...
