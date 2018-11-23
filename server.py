@@ -52,16 +52,16 @@ def helpMenu():
   help = """
 cd		- Change current directory
 back		- Return to main menu
-download	- Download specified file
+download	- Download specified file (Under construction)
 getpid		- Get current process ID
 help		- Display help menu
 hostname	- Get system hostname
 ls		- List directory files
-ps		- Get process list
+ps		- Get process list (Windows implant only)
 pwd		- Get present working directory
 shell		- Execute command via cmd.exe
 sysinfo		- Recieve system information
-upload		- Upload specified file
+upload		- Upload specified file (Under construction)
 whoami		- Get current username
 """
   print(help)
