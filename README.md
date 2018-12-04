@@ -9,7 +9,7 @@ This was also my first actual programming project, so I'm sure it's riddled with
 
 ## Usage
 
-You will need to edit the lhost and lport variables in the implant files to point to your C2 server. It's also recommended to change the CIPHER key in both the server and the implant.
+You will need to edit the lhost and lport variables in the implant files to point to your C2 server. It's also recommended to change the CIPHER key in both the server and the implant. The nix implant does not contain the same functionality as the windows implant
 
 `python server.py <C2 server address> <listening port>`
 
