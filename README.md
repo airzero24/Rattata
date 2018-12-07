@@ -6,6 +6,7 @@ This was also my first actual programming project, so I'm sure it's riddled with
 ## Installation
 
 `pip install -r requirements.txt`
+
 The windows based implant also requires Pywin32 for the Windows API componets of the implant.
 
 ## Usage
