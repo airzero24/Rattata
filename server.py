@@ -61,7 +61,7 @@ def helpMenu(command):
   purge		- Exit session and self delete implant from system
   pwd		- Get present working directory
   screenshot	- Take screenshot of current user's Desktop
-  shell		- Execute command via cmd.exe
+  shell		- Execute command
   sysinfo	- Recieve system information
   wmi		- Execute specified command via WMI
 """
@@ -112,7 +112,7 @@ def helpMenu(command):
       print("  Take screenshot of current user's Desktop\n")
     elif params[1] == 'shell':
       print('\n  Usage: shell <command to run>')
-      print("  Execute command via cmd.exe\n")
+      print("  Execute command, to use cmd.exe specify 'shell cmd.exe /Q /c <command>\n")
     elif params[1] == 'sysinfo':
       print('\n  Usage: sysinfo')
       print("  Recieve system information\n")
