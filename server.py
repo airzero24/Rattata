@@ -239,4 +239,5 @@ if __name__ == '__main__':
 
     # Kill process on keyboard interrupt
     except KeyboardInterrupt:
-      os.system('kill $PPID')
+      s.close()
+      sys.exit(0)
