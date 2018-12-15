@@ -7,7 +7,7 @@ This was also my first actual programming project, so I'm sure it's riddled with
 
 `pip install -r requirements.txt`
 
-The implant also requires Pywin32 for the Windows API componets of the implant.
+The implant also requires Pywin32 for the Windows API componets of the implant. It's recommended to use a program such as UPX packer to reduce the size of the excutable.
 
 ## Usage
 
