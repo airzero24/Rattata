@@ -17,7 +17,7 @@ You will need to edit the lhost and lport variables in the implant files to poin
 
 `python server.py <C2 server address> <listening port>`
 
-Next, edit the implant.py file to point the lhost and lport variabels to your C2 server. 
+Next, edit the implant.py file to point the lhost and lport variables to your C2 server. 
 
 `python implant.py`
 
