@@ -57,6 +57,7 @@ def helpMenu(command):
   kill		- Kill specified process ID
   ls		- List directory files
   ps		- Get process list
+  portscan	- Perform TCP portscan against target system
   purge		- Exit session and self delete implant from system
   pwd		- Get present working directory
   screenshot	- Take screenshot of current user's Desktop
@@ -97,6 +98,9 @@ def helpMenu(command):
     elif params[1] == 'ps':
       print('\n  Usage: ps')
       print('  Get process list\n')
+    elif params[1] == 'portscan':
+      print('\n  Usage: portscan <ip address>')
+      print('  Perform portscan against target system (ports can be specified in implant pre-build)\n')
     elif params[1] == 'purge':
       print('\n  Usage: purge')
       print("  Exit session and self delete implant from system\n")
