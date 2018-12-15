@@ -83,9 +83,10 @@ rattata>quit
 
 ## TODO
 
-#### Keylogger
-#### HTTP C2
+#### Add Keylogger
+#### Develop HTTP C2
 #### Add Upload/Download functionality
+#### Add shellcode injection module
 
 ## Big Thanks
 I really want to thank @HackingDave from [TrustSec](https://www.trustedsec.com/) for all his great work and amazing contributions to the community. A lot of the code in Rattata is based off of his [TrevorC2](https://github.com/trustedsec/trevorc2) project. 
