@@ -83,6 +83,8 @@ rattata>quit
 
 ## TODO
 
+#### Keylogger
+#### HTTP C2
 #### Add Upload/Download functionality
 
 ## Big Thanks
