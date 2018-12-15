@@ -1,5 +1,5 @@
 # Rattata
-Rattata is a python 2.7 based C2 framework designed to be similiar to Metasploit's Meterpreter in functionality (albeit not nearly as functional). Rattata consists of a server and implant (client) component. There are two pre-built implants, one for Windows systems and one for Unix systems. The idea is to either use these implants as is or compile to stand-alone excutable files with either Pyinstaller or Py2exe (both have been tested, however comment out killParent() function in implant-win.py if using Py2exe).
+Rattata is a python 2.7 based C2 framework designed to be similiar to Metasploit's Meterpreter in functionality (albeit not nearly as functional). Rattata consists of a server and implant (windows based client) component. The idea is to either use the implant as is or compile to stand-alone excutable files with either Pyinstaller or Py2exe (both have been tested, however comment out killParent() function in implant.py if using Py2exe).
 
 This was also my first actual programming project, so I'm sure it's riddled with bugs. Let me know if you have ways to improve it!
 
@@ -7,7 +7,7 @@ This was also my first actual programming project, so I'm sure it's riddled with
 
 `pip install -r requirements.txt`
 
-The windows based implant also requires Pywin32 for the Windows API componets of the implant.
+The implant also requires Pywin32 for the Windows API componets of the implant.
 
 ## Usage
 
@@ -15,9 +15,9 @@ You will need to edit the lhost and lport variables in the implant files to poin
 
 `python server.py <C2 server address> <listening port>`
 
-Next, edit the implant-<OS>.py file to point the lhost and lport variabels to your C2 server. 
+Next, edit the implant.py file to point the lhost and lport variabels to your C2 server. 
 
-`python implant-win.py or implant-nix.py`
+`python implant.py`
 
 ## Session Management
 
