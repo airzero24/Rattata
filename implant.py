@@ -179,13 +179,6 @@ def runCommand(command):
     params = command.split()
     portscan(str(params[1]))
 
-  # Execute command via powershell
-  elif command.lower().startswith('powershell'):
-    params = command.split()
-    pow = 'WindowsPowerShell\v1.0\powershell.exe' + ' ' + params[1:]
-    prochandle = subprocess.Popen(pow,  shell=False,stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
-    result = prochandle.stdout.read() + prochandle.stderr.read()
-
   # Get process list
   elif command.lower().startswith('ps'):
     result = 'ProcessID	ParentID		Name\n'
