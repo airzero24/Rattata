@@ -1,4 +1,4 @@
-import os, sys, subprocess, socket, hashlib, base64, win32api, win32file, win32net, wmi
+import os, sys, subprocess, socket, hashlib, base64, win32api, win32file, wmi
 from Crypto import Random
 from Crypto.Cipher import AES
 
