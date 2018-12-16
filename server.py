@@ -235,7 +235,7 @@ if __name__ == '__main__':
           elif 'interact ' in command:
             interactImplant(command)
           else:
-            print("\n[!] No implant sessions have been established to execute commands.\n")
+            pass
 
     # Kill process on keyboard interrupt
     except KeyboardInterrupt:
