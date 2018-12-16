@@ -3,7 +3,7 @@ from Crypto import Random
 from Crypto.Cipher import AES
 
 # Variables for connection and results
-lhost = "192.168.153.128"
+lhost = "127.0.0.1"
 lport = 443
 # This is the key for the AES encryption, can be modified
 CIPHER = "32_rFE2Z@M4KSJYy6w2KgzH9fCYfD=&bPj?e"
