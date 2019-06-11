@@ -1,3 +1,5 @@
+# Came back and saw how bad this code was so I'm archiving it. May revamp new (actually functioning) version later
+
 # Rattata
 Rattata is a python 2.7 based C2 framework designed to be similiar to Metasploit's Meterpreter in functionality (albeit not nearly as functional). Rattata consists of a server and implant (windows based client). The idea is to either use the implant as is or compile to stand-alone executable files with either Pyinstaller or Py2exe (both have been tested, however comment out killParent() function in implant.py if using Py2exe).
 
